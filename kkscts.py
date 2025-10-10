@@ -39,10 +39,10 @@ def getValues(characterData:bytes) -> dict[str, dict[str, float]]:
 
 		for valueName in valueNames:
 			try:
-				decodedValue:float = search.findValue(characterData, valueName);
+				decodedValue:float = search.findValue(characterData, valueName.replace(" ", ""));
 				resultsDict[sectionName][valueName] = decodedValue;
-			except ValueError:
-				print(f"Could not find [{valueName}] in file.");
+			except ValueError as e:
+				print(f"Error: {e}");
 
 	return resultsDict;
 
