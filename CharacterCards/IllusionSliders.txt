@@ -1,0 +1,58 @@
+General
+Body height: 59
+Head Size: 60
+
+Chest
+Breast Size: 64
+Breast Vertical Position: 47
+Breast Spacing: 78
+Breast Horizontal Position: 39
+Breast Vertical Angle: 59
+Breast Depth: 42
+Breast Roundness: 51
+Breast Softness: 66
+Breast Weight: 64
+Areola Depth: 55
+Nipple Thickness: 62
+Nipple Depth: 49
+Areola Size: 67
+
+Upper Body
+Neck Width: 41
+Neck Thickness: 40
+Shoulder Width: 20
+Shoulder Thickness: 18
+Upper Torso Width: 21
+Upper Torso Thickness: 54
+Lower Torso Width: 20
+Lower Torso Thickness: 27
+
+Lower Body
+Waist Position: 64
+Belly Thickness: 6
+Waist Width: 20
+Waist Thickness: 27
+Hip Width: 12
+Hip Thickness: 48
+Butt Size: 84
+Butt Angle: 68
+
+Arms
+Shoulder Width: 37
+Shoulder Tickness: 40
+Upper Arm Width: 27
+Upper Arm Thickness: 25
+Elbow Width: 33
+Elbow Tickness: 7
+Forearm Thickness: 10
+
+Legs
+Upper Thigh Width: 65
+Upper Thigh Thickness: 64
+Lower Thigh Width: 34
+Lower Thigh Thickness: 37
+Knee Width: 36
+Knee Thickness: 40
+Calves: 32
+Ankle Width: 44
+Ankle Thickness: 44
