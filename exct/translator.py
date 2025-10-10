@@ -1,4 +1,4 @@
-
+"translator.py"
 
 def bytesToFloat(byteData:bytes) -> float:
 	#Reinterpret;
@@ -26,7 +26,7 @@ def bytesToFloat(byteData:bytes) -> float:
 
 
 
-if __name__ == "__main__":
+if (__name__ == "__main__"):
 	#Debugging; not used if file is imported.
 	
 	#0x3F23D70A → 0.64
