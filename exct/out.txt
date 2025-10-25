@@ -1,0 +1,21 @@
+Search: Body Height                     | Value: 59
+Search: Breast Size                     | Value: 64
+Search: Breast Depth                    | Value: 42
+Search: Breast Roundness                | Value: 51
+Search: Shoulder Width                  | Value: 20
+Search: Shoulder Thickness              | Value: 18
+Search: Upper Torso Width               | Value: 21
+Search: Upper Torso Thickness           | Value: 54
+Search: Lower Torso Width               | Value: 20
+Search: Lower Torso Thickness           | Value: 27
+Search: Belly Thickness                 | Value: 6
+Search: Waist Width                     | Value: 20
+Search: Waist Thickness                 | Value: 27
+Search: Hip Width                       | Value: 12
+Search: Hip Thickness                   | Value: 48
+Search: Butt Size                       | Value: 81
+Search: Upper Thigh Width               | Value: 65
+Search: Upper Thigh Thickness           | Value: 64
+Search: bustSoftness                    | Value: 66
+Search: areolaSize                      | Value: 67
+Search: bustWeight                      | Value: 64
