@@ -2,69 +2,38 @@
 
 import sys, os;
 from pprint import pprint;
-from exct import search;
+from exct import utils, search;
 
 
-#Stores the section and then each specific value to look for.
-valuesToSearchFor:dict[str, tuple[str]] = {
-	"General": (
-		"Height", "Head Size",
-	),
 
-	"UpperBody": (
-		"Neck Width", "Neck Thickness",	"Shoulder Width", "Shoulder Thickness", "Upper Torso Width",
-		"Upper Torso Thickness", "Lower Torso Width", "Lower Torso Thickness",
-	),
 
-	"Chest": (
-		"Breast Size", "Breast Vertical Position", "Breast Spacing", "Horizontal Position", "Vertical Angle",
-		"Breast Depth",	"Breast Roundness", "Areaola Depth", "Nipple Thickness", "Nipple Depth", 
-	),
-
-	"LowerBody": (
-		"Waist Position", "Belly Thickness", "Waist Width", "Waist Thickness", "Hip Width", "Hip Thickness",
-		"Butt Size", "Butt Angle",
-	),
-
-	"Legs": (
-		"Upper Thigh Width",  "Upper Thigh Thickness",  "Lower Thigh Width",  
-	),
-
-};
-
-def getValues(characterData:bytes) -> dict[str, dict[str, float]]:
-	resultsDict:dict[str, dict[str, float]] = {};
-	for (sectionName, valueNames) in valuesToSearchFor.items():
-		resultsDict[sectionName] = {};
-
-		for valueName in valueNames:
-			try:
-				decodedValue:float = search.findValue(characterData, valueName.replace(" ", ""));
-				resultsDict[sectionName][valueName] = decodedValue;
-			except ValueError as e:
-				print(f"Error: {e}");
-
-	return resultsDict;
 
 
 def main() -> None:
-	#filePath:str = f"CharacterCards/{input('Full name of the card to read [WITH .png]\n> ')}";
-	filePath = "CharacterCards/KoikatsuSun_F_20240410163006202_Tatsuya Yuki.png" #TMP.
-
-	data:bytes = b'';
-	with open(filePath, "rb") as pngFile:
-		fileData:list[bytes] = pngFile.readlines();
-		for line in fileData:
-			data += line;
+	#Main program flow.
+	inputFilePath:str = f"CharacterCards/{input('Full name of the card to read [WITHOUT .png extension]\n> ')}.png";
+	if (len(inputFilePath) == 19): #User did not input any file; use default. (19 chars the user did not enter)
+		inputFilePath = utils.DEFAULT_READ_FILEPATH;
+	characterName:str = inputFilePath.replace("CharacterCards/KoikatsuSun_", "").replace(".png", "");
+	outputFilePath:str = f"{characterName}.result.txt";
 
 
-	endOfImageData:int = str(data).find("IEND");
-	characterData:bytes = bytes(str(data)[endOfImageData:], encoding="utf-8");
+	#Load the file;
+	data:list[int] = utils.loadKKSFile(inputFilePath);
 	
+	#Read values from data;
+	readValues:dict[str, int] = {};
+	readValues = search.getSliderValues(data, readValues); #From main chunk after data start flag
+	readValues["<SPACER>"] = 0; #Adds space to the output for formatting.
+	readValues = search.getSideSearches(data, readValues); #From the wider dataset
+	print(f"Read {len(readValues)-1} values of expected {search.numberOfValues}");
 
-	valuesDict:dict[str, float] = getValues(characterData);
+	utils.WHITESPACE = max([len(key) for key in readValues.keys()]);
 
-	pprint(valuesDict);
+
+	#Write to the file for the user;
+	utils.writeToOutputFile(outputFilePath, readValues);
+
 
 
 
