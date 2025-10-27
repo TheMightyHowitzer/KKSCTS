@@ -2,7 +2,7 @@
 
 import math as maths;
 from collections.abc import Callable;
-import utils;
+from exct import utils;
 
 
 
@@ -25,6 +25,8 @@ def underBustCalc(vMap:dict[str,int]) -> float|None:
 		variable_C29:float = getValueIfInMap(vMap, "Shoulder Width");
 		variable_C30:float = getValueIfInMap(vMap, "Upper Torso Width");
 		variable_C33:float = getValueIfInMap(vMap, "Hip Width");
+		variable_D29:float = getValueIfInMap(vMap, "Shoulder Thickness");
+		variable_D30:float = getValueIfInMap(vMap, "Upper Torso Thickness");
 
 	except KeyError:
 		return None; #Failed.
@@ -53,10 +55,12 @@ def underBustCalc(vMap:dict[str,int]) -> float|None:
 def cupSize(vMap:dict[str,int]) -> float|None:
 	try:
 		variable_C25:float = getValueIfInMap(vMap, "Body Height");
-		variable_C27:float = getValueIfInMap(vMap, "Breast Roundness");
+		variable_C27:float = getValueIfInMap(vMap, "Breast Size");
+		variable_D27:float = getValueIfInMap(vMap, "Breast Depth");
 		variable_E27:float = getValueIfInMap(vMap, "Breast Shape");
 		variable_C29:float = getValueIfInMap(vMap, "Shoulder Width");
 		variable_C30:float = getValueIfInMap(vMap, "Upper Torso Width");
+		variable_G27:int = 100;
 
 	except KeyError:
 		return None; #Failed.
@@ -71,12 +75,12 @@ def cupSize(vMap:dict[str,int]) -> float|None:
 	componentB:float = componentA * 5 + 2*utils.UBUST_BASE_50_WIDTH;
 	termMult:float = (utils.BREAST_BASE_50 * (2.0/3.0) * (1.0 + (variable_C27-50.0)/25.0)) if (variable_C27 > 50.0) else (utils.BREAST_BASE_50 * (2.0/3.0) * variable_C27 / 50.0);
 
-	subTermA:float = ((variable_C27/50.0 * utils.BREAST_BASE_50 * (450.0 + variable_E27)/500.0 * variable_MULT/100.0 * 14.0/15.0 + variable_C25/1500.0)**2 * (termMult * variable_D27 / 10000.0 * 30.0 + 0.85 * variable_MULT / 100.0 * (14.0/15.0) + variable_C25 / 1500.0) * (2.0/3.0) * maths.pi);
-	subTermB:float = ((variable_C27/50.0 * utils.BREAST_BASE_50 * (450.0 + variable_E27)/500.0 * variable_MULT/100.0 * 14.0/15.0 + variable_C25/1500.0)**2 * maths.pi * (termMult * variable_D27 / 10000.0 * 30.0 + 0.85 * variable_MULT / 100.0 * 14.0/15.0 + variable_C25 / 1500.0)  * (2.0/3.0)/3.0 / 2.0 * 3.0 / maths.pi)**(1.0/3.0);
+	subTermA:float = ((variable_C27/50.0 * utils.BREAST_BASE_50 * (450.0 + variable_E27)/500.0 * variable_G27/100.0 * 14.0/15.0 + variable_C25/1500.0)**2 * (termMult * variable_D27 / 10000.0 * 30.0 + 0.85 * variable_G27 / 100.0 * (14.0/15.0) + variable_C25 / 1500.0) * (2.0/3.0) * maths.pi);
+	subTermB:float = ((variable_C27/50.0 * utils.BREAST_BASE_50 * (450.0 + variable_E27)/500.0 * variable_G27/100.0 * 14.0/15.0 + variable_C25/1500.0)**2 * maths.pi * (termMult * variable_D27 / 10000.0 * 30.0 + 0.85 * variable_G27 / 100.0 * 14.0/15.0 + variable_C25 / 1500.0)  * (2.0/3.0)/3.0 / 2.0 * 3.0 / maths.pi)**(1.0/3.0);
 
 	termPower:float = (subTermA + subTermB)**2 * maths.pi;
 
-	return maths.floor(((maths.sqrt(component1 + component2) + termPower*2.0*maths.pi - maths.sqrt(component1 + component2)*2*maths.pi)/2.54));
+	return maths.floor(((maths.sqrt(componentA + componentB) + termPower*2.0*maths.pi - maths.sqrt(componentA + componentB)*2*maths.pi)/2.54)); # componentA and componentB were named 1 and 2 originally. Reason or mistake?
 
 
 
@@ -135,7 +139,7 @@ def waistCalc(vMap:dict[str,int]) -> float|None:
 	subTermB:float = utils.WAIST_BASE_50_WIDTH * 17.22 / 21.0 / 1.05 / (1.0 + utils.WAIST_D_SLIDER_RATIO / 3.0) * 2869.0 / 3000.0 + 131.0 / 150000.0 * variable_C25 * (1.0 + termD / 100.0 * utils.WAIST_D_SLIDER_RATIO) * 1.0 + variable_E32 / 300.0 / 3.0;
 
 	sqrtTerm:float = maths.sqrt((subTermA**2 + subTermB**2)/2.0);
-	addTerm:float = utils.WAIST_BASE_50_WIDTH / (1.0 + utils.WAIST_W_SLIDER_RATIO/3) * 2869.0 / 3000.0 + 131.0 / 150000.0 * variable_C25 * (1.0 + term_C / 100.0 * utils.WAIST_W_SLIDER_RATIO) * 1.0 + variable_E32 / 1000.0 + utils.WAIST_BASE_50_WIDTH * 17.22 / 21.0 / 1.05 / (1.0 + utils.WAIST_D_SLIDER_RATIO / 3.0) * 2869.0 / 3000.0 + 131.0 / 150000.0 * variable_C25 * (1.0 + term_D / 100.0 * utils.WAIST_D_SLIDER_RATIO) * 1.0 + variable_E32 / 300.0;
+	addTerm:float = utils.WAIST_BASE_50_WIDTH / (1.0 + utils.WAIST_W_SLIDER_RATIO/3) * 2869.0 / 3000.0 + 131.0 / 150000.0 * variable_C25 * (1.0 + termC / 100.0 * utils.WAIST_W_SLIDER_RATIO) * 1.0 + variable_E32 / 1000.0 + utils.WAIST_BASE_50_WIDTH * 17.22 / 21.0 / 1.05 / (1.0 + utils.WAIST_D_SLIDER_RATIO / 3.0) * 2869.0 / 3000.0 + 131.0 / 150000.0 * variable_C25 * (1.0 + termD / 100.0 * utils.WAIST_D_SLIDER_RATIO) * 1.0 + variable_E32 / 300.0;
 
 
 	return (2.0 * maths.pi * sqrtTerm + addTerm * (2.0 / 3.0));
@@ -185,7 +189,6 @@ funcMap:dict[str,Callable|None] = {
 	"Waist":		waistCalc,
 	"Hips":			hipsCalc,
 	"Height":	 	(lambda vMap : 150.0 + (0.27 * getValueIfInMap(vMap, "Body Height"))),
-	"Bux":			buxCalc
 };
 
 

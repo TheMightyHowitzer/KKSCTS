@@ -2,7 +2,9 @@
 
 import sys, os;
 from pprint import pprint;
-from exct import utils, search, calc;
+from exct import search;
+from exct import calc;
+from exct import utils;
 
 
 
