@@ -116,7 +116,7 @@ def writeToOutputFile(filePath:str, readValues:dict[str, int]) -> None:
 		if (key == "<SPACER>"):
 			fileData += f"+-{'-'*WHITESPACE}-+------+\n";
 		else:
-			fileData += f"| {key}{(WHITESPACE-len(key))*' '} | {' ' if (value > 0) else ''}{'  ' if (abs(value) < 10) else (' ' if (abs(value) < 100) else '')}{value} |\n";
+			fileData += f"| {key}{(WHITESPACE-len(key))*' '} | {' ' if (value >= 0) else ''}{'  ' if (abs(value) < 10) else (' ' if (abs(value) < 100) else '')}{value} |\n";
 	fileData += f"+-{'-'*WHITESPACE}-+------+\n";
 
 
