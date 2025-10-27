@@ -18,6 +18,22 @@ DEFAULT_WRITE_FILEPATH:str = "result.txt";
 
 
 
+###RATIOS###
+MODEL_SIZE:float = 20.16;
+UBUST_BASE_50_WIDTH:float = 21.5;
+UBUST_W_SLIDER_RATIO:float = 0.4;
+UBUST_D_SLIDER_RATIO:float = 0.9;
+WAIST_BASE_50_WIDTH:float = 18.82;
+WAIST_W_SLIDER_RATIO:float = 0.96;
+WAIST_D_SLIDER_RATIO:float = 1.94;
+HIP_D_SLIDER_RATIO:float = 0.46;
+HIP_W_SLIDER_RATIO:float = 0.43;
+HIP_BASE_50_WIDTH:float = 30.96;
+BREAST_BASE_50:float = 10.5;
+###RATIOS###
+
+
+
 #Other;
 def convertStringToIntList(text:str) -> list[int]:
 	#Converts to the representation used for searchInList.

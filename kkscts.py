@@ -2,7 +2,7 @@
 
 import sys, os;
 from pprint import pprint;
-from exct import utils, search;
+from exct import utils, search, calc;
 
 
 
@@ -29,6 +29,11 @@ def main() -> None:
 	print(f"Read {len(readValues)-1} values of expected {search.numberOfValues}");
 
 	utils.WHITESPACE = max([len(key) for key in readValues.keys()]);
+
+
+	#Calculate values;
+	resultantValues:dict[str,float] = calc.calculateValues(readValues);
+	pprint(resultantValues); #Write to file later.
 
 
 	#Write to the file for the user;
