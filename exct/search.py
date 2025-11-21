@@ -52,7 +52,9 @@ def getSliderValues(data:list[int], resultsDict:dict[str, int]) -> dict[str, int
 
 	#Search through relevant data and find necessary values (in necessaryValuesMap.)
 	for i in necessaryValuesMap.keys():
-		if (i > numberOfValues): break; #Don't try to access extra bytes if less is found in the file.
+		print(i)
+		print("search for")
+		if (i > numberOfValues): print("broke"); break; #Don't try to access extra bytes if less is found in the file.
 
 		startIDX:int = i*5;
 		endIDX:int = (i+1) * 5 - 1;

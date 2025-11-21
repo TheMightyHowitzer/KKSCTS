@@ -9,8 +9,6 @@ from exct import utils;
 
 
 
-
-
 def main() -> None:
 	#Main program flow.
 	inputFilePath:str = f"CharacterCards/{input('Full name of the card to read [WITHOUT .png extension]\n> ')}.png";
@@ -22,10 +20,12 @@ def main() -> None:
 
 	#Load the file;
 	data:list[int] = utils.loadKKSFile(inputFilePath);
+	print("Utils used")
 	
 	#Read values from data;
 	readValues:dict[str, int] = {};
 	readValues = search.getSliderValues(data, readValues); #From main chunk after data start flag
+	print("Search used")
 	readValues["<SPACER>"] = 0; #Adds space to the output for formatting.
 	readValues = search.getSideSearches(data, readValues); #From the wider dataset
 	print(f"Read {len(readValues)-1} values of expected {search.numberOfValues}");
