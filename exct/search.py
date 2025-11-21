@@ -30,12 +30,12 @@ necessaryValuesMap:dict[int, str] = {
 };
 
 defaultValues:dict[str,int] = {
-	"Body height": 30,
+	"Body Height": 30,
 
 	"Breast Size": 43,
 
 	"Breast Depth": 40,
-	"Breast Shape": 62,
+	"Breast Roundness": 62,
 
 	"Shoulder Width": 30,
 	"Shoulder Thickness": 13,
