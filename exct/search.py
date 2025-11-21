@@ -29,6 +29,32 @@ necessaryValuesMap:dict[int, str] = {
 	53: "Upper Thigh Thickness"
 };
 
+defaultValues:dict[str,int] = {
+	"Body height": 30,
+
+	"Breast Size": 43,
+
+	"Breast Depth": 40,
+	"Breast Shape": 62,
+
+	"Shoulder Width": 30,
+	"Shoulder Thickness": 13,
+	"Upper Torso Width": 15,
+	"Upper Torso Thickness": 81,
+	"Lower Torso Width": 44,
+	"Lower Torso Thickness": 42,
+
+	"Belly Thickness": 9,
+	"Waist Width": 15,
+	"Waist Thickness": 69,
+	"Hip Width": 0,
+	"Hip Thickness": 37,
+	"Butt Size": 68,
+	
+	"Upper Thigh Width": 63,
+	"Upper Thigh Thickness": 62
+};
+
 sideSearches:tuple[str] = (
 	"bustSoftness",
 	"bustWeight",
@@ -52,9 +78,9 @@ def getSliderValues(data:list[int], resultsDict:dict[str, int]) -> dict[str, int
 
 	#Search through relevant data and find necessary values (in necessaryValuesMap.)
 	for i in necessaryValuesMap.keys():
-		print(i)
-		print("search for")
-		if (i > numberOfValues): print("broke"); break; #Don't try to access extra bytes if less is found in the file.
+		#print(i, "search for: ", end="")
+		#if (i > numberOfValues): print("broke"); break; #Don't try to access extra bytes if less is found in the file.
+		#else: print()
 
 		startIDX:int = i*5;
 		endIDX:int = (i+1) * 5 - 1;
@@ -62,11 +88,14 @@ def getSliderValues(data:list[int], resultsDict:dict[str, int]) -> dict[str, int
 
 		#Convert to a IEEE754 floating-point value.
 		rawFloatValue:float = translator.bytesToFloat(bytesData);
-		if (not allowed(rawFloatValue)): continue;
-
-		#Clean and add to dataset.
-		cleanedIntValue:int = int(round(rawFloatValue, 2) * 100.0);
+		
 		searchName:str = necessaryValuesMap[i];
+		cleanedIntValue:int = 0;
+		if (not allowed(rawFloatValue)):
+			cleanedIntValue = defaultValues[searchName];
+		else:
+			#Clean and add to dataset.
+			cleanedIntValue = int(round(rawFloatValue, 2) * 100.0);
 		resultsDict[searchName] = cleanedIntValue;
 
 

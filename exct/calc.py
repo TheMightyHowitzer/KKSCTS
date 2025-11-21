@@ -29,8 +29,8 @@ def underBustCalc(vMap:dict[str,int]) -> float|None:
 		variable_D29:float = getValueIfInMap(vMap, "Shoulder Thickness");
 		variable_D30:float = getValueIfInMap(vMap, "Upper Torso Thickness");
 	
-	except KeyError:
-		print("Underbust Failed")
+	except KeyError as e:
+		print(f"Underbust Failed --> REASONING : [{e}]");
 		return None; #Failed.
 	L7 = 21.5
 	O7 = 0.4
@@ -68,8 +68,8 @@ def cupSize(vMap:dict[str,int]) -> float|None:
 		variable_C27:float = getValueIfInMap(vMap, "Breast Size");
 		variable_D27:float = getValueIfInMap(vMap, "Breast Depth");
 
-	except KeyError:
-		print("Cup Failed")
+	except KeyError as e:
+		print(f"Cup Failed --> REASONING : [{e}]");
 		return None; #Failed.
 	Q42 = 20.16
 	L7 = 21.5
@@ -83,7 +83,7 @@ def cupSize(vMap:dict[str,int]) -> float|None:
 		P20 = L20/3 + L20**2 / 150
 	else:
 		P20 = L20
-	print("Line 86 clear")
+	#print("Line 86 clear")
 	N48 = P45*L14*(1+P20/100*M45)
 	M7 = 20.8/27.73
 	O45 = M7
@@ -96,7 +96,7 @@ def cupSize(vMap:dict[str,int]) -> float|None:
 		Q20 = M20/3 + M20**2 / 150
 	else:
 		Q20 = M20
-	print("Line 98 clear")
+	#print("Line 98 clear")
 	O48 = Q45*L14*(1+Q20/100*N45)
 	N52 = 10.5
 	L49 = (450+variable_E27)/500
@@ -108,7 +108,7 @@ def cupSize(vMap:dict[str,int]) -> float|None:
 		L52 = (N52 * (2/3) * (1 + (variable_C27 - 50) / 25))*K49 * (G27 / 100) * O52
 	else:
 		L52 = (N52 * (2/3) * (variable_C27 / 50))*K49 * (G27 / 100) * O52
-	print("Line 111 clear")
+	#print("Line 111 clear")
 	K52 = (((M52/2)**2*(L52/3))*2/3*maths.pi) + ((M52/2)**2 * maths.pi * L52 * (2 / 3) / 3)
 	cupSizeCalc = ((maths.sqrt(((maths.pi*N48*O48/9+N48*O48/9*5)+((pow(K52/2*3/maths.pi,1/3))**2*maths.pi))/maths.pi)*2*maths.pi)-(maths.sqrt((maths.pi*N48*O48/9+N48*O48/9*5)/maths.pi)*2*maths.pi))/cupSizeTable[0][0]
 	return cupSizeCalc;
@@ -125,8 +125,8 @@ def cupSizeLetter(vMap:dict[str,int]) -> str|None:
 		variable_D27:float = getValueIfInMap(vMap, "Breast Depth");
 
 
-	except KeyError:
-		print("Cup Failed")
+	except KeyError as e:
+		print(f"Cup Failed --> REASONING : [{e}]");
 		return None; #Failed.
 	Q42 = 20.16
 	L7 = 21.5
@@ -140,7 +140,7 @@ def cupSizeLetter(vMap:dict[str,int]) -> str|None:
 		P20 = L20/3 + L20**2 / 150
 	else:
 		P20 = L20
-	print("Line 86 clear")
+	#print("Line 86 clear")
 	N48 = P45*L14*(1+P20/100*M45)
 	M7 = 20.8/27.73
 	O45 = M7
@@ -153,7 +153,7 @@ def cupSizeLetter(vMap:dict[str,int]) -> str|None:
 		Q20 = M20/3 + M20**2 / 150
 	else:
 		Q20 = M20
-	print("Line 98 clear")
+	#print("Line 98 clear")
 	O48 = Q45*L14*(1+Q20/100*N45)
 	N52 = 10.5
 	L49 = (450+variable_E27)/500
@@ -165,7 +165,7 @@ def cupSizeLetter(vMap:dict[str,int]) -> str|None:
 		L52 = (N52 * (2/3) * (1 + (variable_C27 - 50) / 25))*K49 * (G27 / 100) * O52
 	else:
 		L52 = (N52 * (2/3) * (variable_C27 / 50))*K49 * (G27 / 100) * O52
-	print("Line 111 clear")
+	#print("Line 111 clear")
 	K52 = (((M52/2)**2*(L52/3))*2/3*maths.pi) + ((M52/2)**2 * maths.pi * L52 * (2 / 3) / 3)
 	cupSizeCalc = (-cupSizeTable[0][1] + ((maths.sqrt(((maths.pi*N48*O48/9+N48*O48/9*5)+((pow(K52/2*3/maths.pi,1/3))**2*maths.pi))/maths.pi)*2*maths.pi)-(maths.sqrt((maths.pi*N48*O48/9+N48*O48/9*5)/maths.pi)*2*maths.pi)))/cupSizeTable[0][0]
 	sizeRound = maths.floor(cupSizeCalc)
@@ -179,8 +179,8 @@ def bustCalc(vMap:dict[str,int]) -> float|None:
 
 		variable_D27:float = getValueIfInMap(vMap, "Breast Depth");
 
-	except KeyError:
-		print("Bust Failed")
+	except KeyError as e:
+		print(f"Bust Failed --> REASONING : [{e}]");
 		return None; #Failed.
 
 	C14 = underBustCalc(vMap)
@@ -202,8 +202,8 @@ def waistCalc(vMap:dict[str,int]) -> float|None:
 		variable_D30:float = getValueIfInMap(vMap, "Upper Torso Thickness")
 	
 
-	except KeyError:
-		print("waist failed")
+	except KeyError as e:
+		print(f"waist failed --> REASONING : [{e}]");
 		return None; #Failed.
 	L8 = 18.82
 	O8 = 0.96
@@ -249,8 +249,8 @@ def hipsCalc(vMap:dict[str,int]) -> float|None:
 		variable_C34:float = getValueIfInMap(vMap, "Butt Size")
 
 
-	except KeyError:
-		print("hips Failed")
+	except KeyError as e:
+		print(f"hips Failed --> REASONING : [{e}]");
 		return None; #Failed.
 
 	O9 = 0.43
@@ -305,8 +305,8 @@ def weightCalc(vMap:dict[str,int]) -> float|None:
 
 
 
-	except KeyError:
-		print("Weight Failed")
+	except KeyError as e:
+		print(f"Weight Failed --> REASONING : [{e}]");
 		return None; #Failed.
 	
 
@@ -410,7 +410,7 @@ def buxCalc(vMap:dict[str,int], prevValues:dict[str,float|None]) -> float|None:
 	try:
 		bux = 10
 		return bux;
-	except KeyError:
+	except KeyError as e:
 		return None #Failed.
 
 
