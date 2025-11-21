@@ -3,11 +3,6 @@
 import math as maths;
 from collections.abc import Callable;
 from exct import utils;
-sizes = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"]
-cupSizeTable = ["EU", "JP"]
-cupSizeTable[0] = 2, 12
-cupSizeTable[1] = 2.5, 10
-muscestimate = 3.1
 
 
 
@@ -110,67 +105,10 @@ def cupSize(vMap:dict[str,int]) -> float|None:
 		L52 = (N52 * (2/3) * (variable_C27 / 50))*K49 * (G27 / 100) * O52
 	#print("Line 111 clear")
 	K52 = (((M52/2)**2*(L52/3))*2/3*maths.pi) + ((M52/2)**2 * maths.pi * L52 * (2 / 3) / 3)
-	cupSizeCalc = ((maths.sqrt(((maths.pi*N48*O48/9+N48*O48/9*5)+((pow(K52/2*3/maths.pi,1/3))**2*maths.pi))/maths.pi)*2*maths.pi)-(maths.sqrt((maths.pi*N48*O48/9+N48*O48/9*5)/maths.pi)*2*maths.pi))/cupSizeTable[0][0]
+	cupSizeCalc = ((maths.sqrt(((maths.pi*N48*O48/9+N48*O48/9*5)+((pow(K52/2*3/maths.pi,1/3))**2*maths.pi))/maths.pi)*2*maths.pi)-(maths.sqrt((maths.pi*N48*O48/9+N48*O48/9*5)/maths.pi)*2*maths.pi))/utils.CUP_SIZE_TABLE[0][0]
 	return cupSizeCalc;
 
-def cupSizeLetter(vMap:dict[str,int]) -> str|None:
-	try:
-		variable_C25:float = getValueIfInMap(vMap, "Body Height");
-		variable_C29:float = getValueIfInMap(vMap, "Shoulder Width");
-		variable_C30:float = getValueIfInMap(vMap, "Upper Torso Width");
-		variable_D29:float = getValueIfInMap(vMap, "Shoulder Thickness");
-		variable_D30:float = getValueIfInMap(vMap, "Upper Torso Thickness");
-		variable_E27:float = getValueIfInMap(vMap, "Breast Roundness");
-		variable_C27:float = getValueIfInMap(vMap, "Breast Size");
-		variable_D27:float = getValueIfInMap(vMap, "Breast Depth");
 
-
-	except KeyError as e:
-		print(f"Cup Failed --> REASONING : [{e}]");
-		return None; #Failed.
-	Q42 = 20.16
-	L7 = 21.5
-	K45 = 2*L7-Q42
-	O7 = 0.4
-	M45 = O7
-	P45 = K45/(1+M45/3)
-	L14 = 2869/3000 + 131/150000 * variable_C25
-	L20 = (variable_C29*0.9+variable_C30*1.1)/2
-	if 0<= L20 <= 100:
-		P20 = L20/3 + L20**2 / 150
-	else:
-		P20 = L20
-	#print("Line 86 clear")
-	N48 = P45*L14*(1+P20/100*M45)
-	M7 = 20.8/27.73
-	O45 = M7
-	L45 = K45*O45
-	P7 = 0.9
-	N45 = P7
-	Q45 = L45/(1+N45/3)
-	M20 = (variable_D29*0.9+variable_D30*1.1)/2
-	if 0<= M20 <= 100:
-		Q20 = M20/3 + M20**2 / 150
-	else:
-		Q20 = M20
-	#print("Line 98 clear")
-	O48 = Q45*L14*(1+Q20/100*N45)
-	N52 = 10.5
-	L49 = (450+variable_E27)/500
-	G27 = 100
-	O52 = 14/15+variable_C25*1/750
-	M52 = variable_C27/50*N52*L49*G27/100*O52
-	K49 = variable_D27/10000*30+0.85
-	if variable_C27 > 50:
-		L52 = (N52 * (2/3) * (1 + (variable_C27 - 50) / 25))*K49 * (G27 / 100) * O52
-	else:
-		L52 = (N52 * (2/3) * (variable_C27 / 50))*K49 * (G27 / 100) * O52
-	#print("Line 111 clear")
-	K52 = (((M52/2)**2*(L52/3))*2/3*maths.pi) + ((M52/2)**2 * maths.pi * L52 * (2 / 3) / 3)
-	cupSizeCalc = (-cupSizeTable[0][1] + ((maths.sqrt(((maths.pi*N48*O48/9+N48*O48/9*5)+((pow(K52/2*3/maths.pi,1/3))**2*maths.pi))/maths.pi)*2*maths.pi)-(maths.sqrt((maths.pi*N48*O48/9+N48*O48/9*5)/maths.pi)*2*maths.pi)))/cupSizeTable[0][0]
-	sizeRound = maths.floor(cupSizeCalc)
-	sizeLetter = sizes[sizeRound]
-	return sizeLetter;
 
 
 
@@ -189,6 +127,8 @@ def bustCalc(vMap:dict[str,int]) -> float|None:
 	bust = C14+F15*2.54*K49
 
 	return bust;
+
+
 
 
 
@@ -229,6 +169,7 @@ def waistCalc(vMap:dict[str,int]) -> float|None:
 	M30 = R7*L14*(1+Q20/100*P7)
 	waistCirc = (2*maths.pi*maths.sqrt(((L30/3)**2+(M30/3)**2)/2))+(L30+M30)*2/3
 	return waistCirc;
+
 
 
 
@@ -276,6 +217,10 @@ def hipsCalc(vMap:dict[str,int]) -> float|None:
 	hipCirc = (2*maths.pi*maths.sqrt(((L31/3)**2+(M31/3)**2)/2))+(L31+M31)*2/3
 
 	return hipCirc;
+
+
+
+
 
 def weightCalc(vMap:dict[str,int]) -> float|None:
 	try:
@@ -380,7 +325,7 @@ def weightCalc(vMap:dict[str,int]) -> float|None:
 	D48 = 1/7
 	D49 = 0.25
 	D50 = C19*D47*D48*D49
-	D41 = muscestimate
+	D41 = utils.MUSCLEATURE_ESTIMATE
 	E47 = ((25+D41*2.5)**2)/(4*maths.pi)
 	E48 = 0.43
 	E49 = 0.4 
@@ -408,16 +353,24 @@ def weightCalc(vMap:dict[str,int]) -> float|None:
 
 def buxCalc(vMap:dict[str,int], prevValues:dict[str,float|None]) -> float|None:
 	try:
-		bux = 10
+		bux:int = 10; #TEMPORARY
 		return bux;
+
 	except KeyError as e:
 		return None #Failed.
 
 
 
+def convertToLetter(cupSizeCalc:int) -> str:
+	sizeRound:int = maths.floor(cupSizeCalc);
+	print(sizeRound)
+	sizeLetter:str = chr(65 + sizeRound);
+	return sizeLetter;
+
+
 funcMap:dict[str,Callable|None] = {
 	"Underbust":	underBustCalc,
-	"Cup Size":		cupSizeLetter,
+	"Cup Size":		(lambda vMap : chr(65+maths.floor(cupSize(vMap)))),
 	"Bust":			bustCalc,
 	"Waist":		waistCalc,
 	"Hips":			hipsCalc,
@@ -427,7 +380,11 @@ funcMap:dict[str,Callable|None] = {
 
 
 
+
+
 def calculateValues(readValues:dict[str,int]) -> dict[str, float]:
 	resultsDict:dict[str,float] = {key:func(readValues) for (key,func) in funcMap.items()};
+	
 	resultsDict["Bux"] = buxCalc(readValues, resultsDict);
+
 	return resultsDict;

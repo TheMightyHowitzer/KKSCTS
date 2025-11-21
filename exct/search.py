@@ -50,7 +50,7 @@ defaultValues:dict[str,int] = {
 	"Hip Width": 0,
 	"Hip Thickness": 37,
 	"Butt Size": 68,
-	
+
 	"Upper Thigh Width": 63,
 	"Upper Thigh Thickness": 62
 };
@@ -61,7 +61,11 @@ sideSearches:tuple[str] = (
 	"areolaSize"
 );
 
+
+
+global numberOfValues, numberOfFoundValues;
 numberOfValues = len(necessaryValuesMap) + len(sideSearches);
+numberOfFoundValues = 0;
 
 
 
@@ -70,10 +74,12 @@ def allowed(value:float) -> bool:
 
 
 def getSliderValues(data:list[int], resultsDict:dict[str, int]) -> dict[str, int]:
+	global numberOfValues, numberOfFoundValues;
+
 	caIndex:int = utils.searchInList(data, 0xCA); #Start
 	acIndex:int = utils.searchInList(data, 0xAC); #End
 	relevantData:list[int] = data[caIndex:acIndex];
-	numberOfValues:int = len(relevantData) // 5; #[4 bytes of data, 1 byte seperator] repeatedly.
+	numberOfValues = len(relevantData) // 5; #[4 bytes of data, 1 byte seperator] repeatedly.
 
 
 	#Search through relevant data and find necessary values (in necessaryValuesMap.)
@@ -96,6 +102,8 @@ def getSliderValues(data:list[int], resultsDict:dict[str, int]) -> dict[str, int
 		else:
 			#Clean and add to dataset.
 			cleanedIntValue = int(round(rawFloatValue, 2) * 100.0);
+			numberOfFoundValues += 1;
+
 		resultsDict[searchName] = cleanedIntValue;
 
 

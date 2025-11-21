@@ -20,18 +20,23 @@ def main() -> None:
 
 	#Load the file;
 	data:list[int] = utils.loadKKSFile(inputFilePath);
-	#print("Utils used")
 	
+
 	#Read values from data;
 	readValues:dict[str, int] = {};
 	readValues = search.getSliderValues(data, readValues); #From main chunk after data start flag
-	#print("Search used")
+
 	readValues["<SPACER>"] = 0; #Adds space to the output for formatting.
 	readValues = search.getSideSearches(data, readValues); #From the wider dataset
 
+
 	#Print values
-	numFound:int = len(readValues)-1;
-	print(f"Read [{numFound} of {search.numberOfValues}] values ({100.0*(numFound/search.numberOfValues):.2f}%)");
+	numFound:int = search.numberOfFoundValues-1;
+	print(f"Read [{numFound} of {search.numberOfValues}] values ({100.0*(numFound/search.numberOfValues):.2f}%)", end="");
+	if (numFound < search.numberOfValues):
+		print(" - Missing values defaulted to slider base values.");
+	else:
+		print(); #Newline.
 
 	utils.WHITESPACE = max([len(key) for key in readValues.keys()]);
 
@@ -39,10 +44,12 @@ def main() -> None:
 	#Calculate values;
 	resultantValues:dict[str,float] = calc.calculateValues(readValues);
 
+
 	#Debugging only
-	print();
-	pprint(resultantValues);
-	print();
+	if (utils.DEBUG):
+		print();
+		pprint(resultantValues);
+		print();
 
 
 	#Write to the file for the user;

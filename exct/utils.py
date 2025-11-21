@@ -14,6 +14,9 @@ DATA_START_FLAG:str = "shapeValueBody";
 #File writing [formatting/path];
 WHITESPACE:int = 32;
 DEFAULT_WRITE_FILEPATH:str = "result.txt";
+
+#General
+DEBUG:bool = True;
 ###Settings values###
 
 
@@ -30,6 +33,12 @@ HIP_D_SLIDER_RATIO:float = 0.46;
 HIP_W_SLIDER_RATIO:float = 0.43;
 HIP_BASE_50_WIDTH:float = 30.96;
 BREAST_BASE_50:float = 10.5;
+
+MUSCLEATURE_ESTIMATE:float = 3.1;
+CUP_SIZE_TABLE:list[tuple[int]] = [
+	(2.0, 12), #EU
+	(2.5, 10)  #JP
+];
 ###RATIOS###
 
 
