@@ -2,6 +2,9 @@
 from itertools import chain
 
 
+global DEBUG, QUIET;
+
+
 ###Settings values###
 #For the slider data;
 LOWEST_ALLOWABLE_VALUE:float = 1.0e-5;
@@ -13,10 +16,11 @@ DATA_START_FLAG:str = "shapeValueBody";
 
 #File writing [formatting/path];
 WHITESPACE:int = 32;
-DEFAULT_WRITE_FILEPATH:str = "result.txt";
+DEFAULT_WRITE_FILEPATH:str = "result/result.txt";
 
 #General
-DEBUG:bool = False;
+DEBUG:bool = True;  #Additional info for debug
+QUIET:bool = False; #Entirely hides the UI
 ###Settings values###
 
 

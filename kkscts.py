@@ -1,20 +1,47 @@
 "kkscts.py"
 
-import sys, os;
+import sys, os, argparse;
+import re as regex;
 from pprint import pprint;
 from exct import search;
 from exct import calc;
 from exct import utils;
 
 
+def setupCLIargs() -> argparse.Namespace:
+	parser:argparse.ArgumentParser = argparse.ArgumentParser(
+		prog="KKSCTS", #Program name
+		description="Parses Koikatsu-Sunshine character PNG files into a readable character sheet." #Description
+	);
+
+	#Arguments;
+	parser.add_argument("-f", "--file", help="The name of the card to use, within the subfolder 'CharacterCards/'", type=str); #Filename
+	parser.add_argument("-v", "--verbose", help="Debugging/Verbose output", type=bool); #Verbosity
+	parser.add_argument("-q", "--quiet", help="Disables the UI entirely.", type=bool); #UI-hide
+
+	#Read arguments into values;
+	return parser.parse_args();
 
 
-def main() -> None:
+
+def main(fileName:str) -> None:
 	#Main program flow.
-	inputFilePath:str = f"CharacterCards/{input('Full name of the card to read [WITHOUT .png extension]\n> ')}.png";
-	if (len(inputFilePath) == 19): #User did not input any file; use default. (19 chars the user did not enter)
-		inputFilePath = utils.DEFAULT_READ_FILEPATH;
-	characterName:str = inputFilePath.replace("CharacterCards/KoikatsuSun_", "").replace(".png", "");
+
+	#Handle filename.
+	inputFilePath:str = "";
+	characterName:str = "";
+	if (len(fileName) == 0): #User did not input any file; use default.
+		userInput:str = input('Full name of the card to read [WITHOUT .png extension]\n> ');
+		if (len(userInput) == 0):
+			inputFilePath = utils.DEFAULT_READ_FILEPATH;
+			userInput = inputFilePath;
+		else:
+			inputFilePath = f"CharacterCards/{userInput}.png";
+		characterName = userInput.replace("KoikatsuSun_", "").replace(".png", "");
+
+	else:
+		inputFilePath = f"CharacterCards/{fileName}.png";
+		characterName = fileName.replace("KoikatsuSun_", "").replace(".png", "");
 	outputFilePath:str = f"result/{characterName}.result.txt";
 
 
@@ -60,4 +87,12 @@ def main() -> None:
 
 
 if (__name__ == "__main__"):
-	main();
+	args:argparse.Namespace = setupCLIargs();
+
+	fileName:str = f"{args.file}" if (args.file is not None) else "";
+	fileName = regex.sub(r'(?i)\.png', '', fileName);
+
+	utils.DEBUG = utils.DEBUG or (args.verbose is not None);
+	utils.QUIET = args.quiet is not None;
+
+	main(fileName);
