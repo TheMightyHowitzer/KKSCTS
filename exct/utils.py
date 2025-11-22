@@ -149,7 +149,7 @@ def writeToOutputFile(filePath:str, resultantValues:dict[str, float|str]) -> Non
 			strValue:str = str(round(value,2));
 			fileData += f"| {key}{(WHITESPACE-len(key))*' '} | {(WHITESPACE-len(strValue))*' '}{strValue} |\n";
 
-		if (DEBUG): print(f"    [{key}] = [{value}],");
+		if (DEBUG): print(f"    [{key}] = [{value:.2f}],");
 
 	if (DEBUG): print("}");
 
