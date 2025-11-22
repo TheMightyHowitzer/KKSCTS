@@ -72,13 +72,6 @@ def main(fileName:str) -> None:
 	resultantValues:dict[str,float] = calc.calculateValues(readValues);
 
 
-	#Debugging only
-	if (utils.DEBUG):
-		print();
-		pprint(resultantValues);
-		print();
-
-
 	#Write to the file for the user;
 	utils.writeToOutputFile(outputFilePath, resultantValues);
 

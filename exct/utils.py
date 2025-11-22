@@ -136,9 +136,10 @@ writeOrder:tuple[str] = (
 def writeToOutputFile(filePath:str, resultantValues:dict[str, float|str]) -> None:
 	#Writes fileData to the relevant file.
 	fileData:str = "";
+	if (DEBUG): print("\nDEBUG {");
 	for key in writeOrder:
 		if (key == "<SPACER>"):
-			fileData += f"+-{'-'*WHITESPACE}-+------+\n";
+			fileData += f"+-{'-'*WHITESPACE}-+-{'-'*WHITESPACE}-+\n";
 			continue;
 
 		value:float|str = resultantValues[key];
@@ -148,7 +149,9 @@ def writeToOutputFile(filePath:str, resultantValues:dict[str, float|str]) -> Non
 			strValue:str = str(round(value,2));
 			fileData += f"| {key}{(WHITESPACE-len(key))*' '} | {(WHITESPACE-len(strValue))*' '}{strValue} |\n";
 
+		if (DEBUG): print(f"    [{key}] = [{value}],");
 
+	if (DEBUG): print("}");
 
 	with open(filePath, "w") as outFile:
 		outFile.write(fileData);
