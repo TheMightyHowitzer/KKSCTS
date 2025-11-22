@@ -10,12 +10,14 @@ from exct import utils;
 
 def setupCLIargs() -> argparse.Namespace:
 	parser:argparse.ArgumentParser = argparse.ArgumentParser(
-		prog="KKSCTS", #Name
-		description="Parses Koikatsu Sunshine character PNG files into a readable character sheet." #Description
+		prog="KKSCTS", #Program name
+		description="Parses Koikatsu-Sunshine character PNG files into a readable character sheet." #Description
 	);
 
 	#Arguments;
 	parser.add_argument("-f", "--file", help="The name of the card to use, within the subfolder 'CharacterCards/'", type=str); #Filename
+	parser.add_argument("-v", "--verbose", help="Debugging/Verbose output", type=bool); #Verbosity
+	parser.add_argument("-q", "--quiet", help="Disables the UI entirely.", type=bool); #UI-hide
 
 	#Read arguments into values;
 	return parser.parse_args();
@@ -40,7 +42,7 @@ def main(fileName:str) -> None:
 	else:
 		inputFilePath = f"CharacterCards/{fileName}.png";
 		characterName = fileName.replace("KoikatsuSun_", "").replace(".png", "");
-	outputFilePath:str = f"{characterName}.result.txt";
+	outputFilePath:str = f"result/{characterName}.result.txt";
 
 
 	#Load the file;
@@ -89,5 +91,8 @@ if (__name__ == "__main__"):
 
 	fileName:str = f"{args.file}" if (args.file is not None) else "";
 	fileName = regex.sub(r'(?i)\.png', '', fileName);
+
+	utils.DEBUG = utils.DEBUG or (args.verbose is not None);
+	utils.QUIET = args.quiet is not None;
 
 	main(fileName);
