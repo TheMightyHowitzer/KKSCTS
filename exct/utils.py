@@ -39,6 +39,7 @@ CUP_SIZE_TABLE:list[tuple[int]] = [
 	(2.0, 12), #EU
 	(2.5, 10)  #JP
 ];
+CURRENT_SIZE_SYSTEM = 0; #EU ^
 ###RATIOS###
 
 

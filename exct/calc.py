@@ -52,7 +52,7 @@ def underBustCalc(vMap:dict[str,int]) -> float|None:
 	return uBust;
 
 
-def cupSize(vMap:dict[str,int]) -> float|None:
+def cupSize(vMap:dict[str,int], subtractValue:bool=False) -> float|None:
 	try:
 		variable_C25:float = getValueIfInMap(vMap, "Body Height");
 		variable_C29:float = getValueIfInMap(vMap, "Shoulder Width");
@@ -105,7 +105,12 @@ def cupSize(vMap:dict[str,int]) -> float|None:
 		L52 = (N52 * (2/3) * (variable_C27 / 50))*K49 * (G27 / 100) * O52
 	#print("Line 111 clear")
 	K52 = (((M52/2)**2*(L52/3))*2/3*maths.pi) + ((M52/2)**2 * maths.pi * L52 * (2 / 3) / 3)
-	cupSizeCalc = ((maths.sqrt(((maths.pi*N48*O48/9+N48*O48/9*5)+((pow(K52/2*3/maths.pi,1/3))**2*maths.pi))/maths.pi)*2*maths.pi)-(maths.sqrt((maths.pi*N48*O48/9+N48*O48/9*5)/maths.pi)*2*maths.pi))/utils.CUP_SIZE_TABLE[0][0]
+	
+	cupSizeCalc:int = 0;
+	if (subtractValue):
+		cupSizeCalc = (-utils.CUP_SIZE_TABLE[utils.CURRENT_SIZE_SYSTEM][1] + ((maths.sqrt(((maths.pi*N48*O48/9+N48*O48/9*5)+((pow(K52/2*3/maths.pi,1/3))**2*maths.pi))/maths.pi)*2*maths.pi)-(maths.sqrt((maths.pi*N48*O48/9+N48*O48/9*5)/maths.pi)*2*maths.pi)))/utils.CUP_SIZE_TABLE[utils.CURRENT_SIZE_SYSTEM][0]
+	else:
+		cupSizeCalc = ((maths.sqrt(((maths.pi*N48*O48/9+N48*O48/9*5)+((pow(K52/2*3/maths.pi,1/3))**2*maths.pi))/maths.pi)*2*maths.pi)-(maths.sqrt((maths.pi*N48*O48/9+N48*O48/9*5)/maths.pi)*2*maths.pi))/utils.CUP_SIZE_TABLE[utils.CURRENT_SIZE_SYSTEM][0]
 	return cupSizeCalc;
 
 
@@ -361,16 +366,9 @@ def buxCalc(vMap:dict[str,int], prevValues:dict[str,float|None]) -> float|None:
 
 
 
-def convertToLetter(cupSizeCalc:int) -> str:
-	sizeRound:int = maths.floor(cupSizeCalc);
-	print(sizeRound)
-	sizeLetter:str = chr(65 + sizeRound);
-	return sizeLetter;
-
-
 funcMap:dict[str,Callable|None] = {
 	"Underbust":	underBustCalc,
-	"Cup Size":		(lambda vMap : chr(65+maths.floor(cupSize(vMap)))),
+	"Cup Size":		(lambda vMap : chr(65 + maths.floor(cupSize(vMap, True)))),
 	"Bust":			bustCalc,
 	"Waist":		waistCalc,
 	"Hips":			hipsCalc,
