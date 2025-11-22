@@ -11,7 +11,7 @@ LOWEST_ALLOWABLE_VALUE:float = 1.0e-5;
 HIGHEST_ALLOWABLE_VALUE:float = 2.1;
 
 #File reading;
-DEFAULT_READ_FILEPATH:str = "CharacterCards/KoikatsuSun_F_20250113120608760_Chitose Hana.png"; #TESTING ONLY
+DEFAULT_READ_FILEPATH:str = "KoikatsuSun_F_20250113120608760_Chitose Hana.png"; #TESTING ONLY
 DATA_START_FLAG:str = "shapeValueBody";
 
 #File writing [formatting/path];

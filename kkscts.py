@@ -33,11 +33,11 @@ def main(fileName:str) -> None:
 	if (len(fileName) == 0): #User did not input any file; use default.
 		userInput:str = input('Full name of the card to read [WITHOUT .png extension]\n> ');
 		if (len(userInput) == 0):
-			inputFilePath = utils.DEFAULT_READ_FILEPATH;
-			userInput = inputFilePath;
+			inputFilePath = f"CharacterCards/{utils.DEFAULT_READ_FILEPATH}";
+			characterName = utils.DEFAULT_READ_FILEPATH.replace("KoikatsuSun_", "").replace(".png", "");
 		else:
 			inputFilePath = f"CharacterCards/{userInput}.png";
-		characterName = userInput.replace("KoikatsuSun_", "").replace(".png", "");
+			characterName = userInput.replace("KoikatsuSun_", "").replace(".png", "");
 
 	else:
 		inputFilePath = f"CharacterCards/{fileName}.png";
