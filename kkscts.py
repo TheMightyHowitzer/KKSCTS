@@ -80,7 +80,7 @@ def main(fileName:str) -> None:
 
 
 	#Write to the file for the user;
-	utils.writeToOutputFile(outputFilePath, readValues);
+	utils.writeToOutputFile(outputFilePath, resultantValues);
 
 
 

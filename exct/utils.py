@@ -122,16 +122,32 @@ def loadKKSFile(filePath:str) -> list[int]:
 
 
 
-def writeToOutputFile(filePath:str, readValues:dict[str, int]) -> None:
-	#Writes fileData to the relevant file.
 
-	fileData:str = f"+-{'-'*WHITESPACE}-+------+\n";
-	for (key, value) in readValues.items():
+#Order to write to file
+writeOrder:tuple[str] = (
+	"<SPACER>",
+	"Bux", 		"Height",
+	"Weight", 	"Underbust",
+	"Cup Size", "Bust",
+	"Waist", 	"Hips",
+	"<SPACER>"
+);
+
+def writeToOutputFile(filePath:str, resultantValues:dict[str, float|str]) -> None:
+	#Writes fileData to the relevant file.
+	fileData:str = "";
+	for key in writeOrder:
 		if (key == "<SPACER>"):
 			fileData += f"+-{'-'*WHITESPACE}-+------+\n";
+			continue;
+
+		value:float|str = resultantValues[key];
+		if (type(value) == str):
+			fileData += f"| {key}{(WHITESPACE-len(key))*' '} | {(WHITESPACE-len(value))*' '}{value} |\n";
 		else:
-			fileData += f"| {key}{(WHITESPACE-len(key))*' '} | {' ' if (value >= 0) else ''}{'  ' if (abs(value) < 10) else (' ' if (abs(value) < 100) else '')}{value} |\n";
-	fileData += f"+-{'-'*WHITESPACE}-+------+\n";
+			strValue:str = str(round(value,2));
+			fileData += f"| {key}{(WHITESPACE-len(key))*' '} | {(WHITESPACE-len(strValue))*' '}{strValue} |\n";
+
 
 
 	with open(filePath, "w") as outFile:
