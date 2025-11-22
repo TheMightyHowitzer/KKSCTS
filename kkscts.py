@@ -15,7 +15,7 @@ def main() -> None:
 	if (len(inputFilePath) == 19): #User did not input any file; use default. (19 chars the user did not enter)
 		inputFilePath = utils.DEFAULT_READ_FILEPATH;
 	characterName:str = inputFilePath.replace("CharacterCards/KoikatsuSun_", "").replace(".png", "");
-	outputFilePath:str = f"{characterName}.result.txt";
+	outputFilePath:str = f"result/{characterName}.result.txt";
 
 
 	#Load the file;
@@ -53,7 +53,7 @@ def main() -> None:
 
 
 	#Write to the file for the user;
-	utils.writeToOutputFile(outputFilePath, readValues);
+	utils.writeToOutputFile(outputFilePath, resultantValues);
 
 
 

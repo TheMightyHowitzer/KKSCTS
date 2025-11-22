@@ -1,4 +1,4 @@
 *.pyc
 CharacterCards/KoikatsuSun*.png
 __pycache__
-*.result.txt
+result/*.result.txt
